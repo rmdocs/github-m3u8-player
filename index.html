@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>试看视频播放器</title>
+        <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+        <script type="text/javascript" src="https://unpkg.com/popper.js@1.12.3"></script>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js" integrity="sha384-h0AbiXch4ZDo7tp9hKZ4TsHbi047NrKGLO3SEJAg45jXxnGIfYzk4Si90RDIqNm1" crossorigin="anonymous"></script>
+        <link rel="stylesheet" href="home.css">
+        <script type="text/javascript" src="main.js"></script>
+    </head>
+    <body>
+        <div class="col-lg-6" id="text-box">
+            <h1 class="page-name">M3U8 Player</h1>
+            <div class="input-group">
+                <input type="text" class="form-control" placeholder="Paste the m3u8 link here" id="m3u8-placeholder">
+                <span class="input-group-btn">
+                    <button class="btn btn-primary" type="button" id="play-btn">生成链接</button>
+                </span>
+            </div>
+            <br/>
+            <div class="page-name">
+                <h1>Add CDN</h1>
+            </div>
+            <div class="container">
+                <div class="center">粘贴github文件链接</div>
+                <input id="github" type="text">
+                <br>
+                <div class="center">生成 jsDelivr CDN链接</div>
+                <input id="jsdelivr" type="text">
+                <a id="cdn" href="" target="_blank"></a>
+                <a id="purge" href="" target="_blank"></a>
+            </div>
+        </div>
+    </body>
+    <style>
+        input {
+            width: 100%;
+            font-size: 25px;
+            height: 30px;
+            margin: 2rem;
+        }
+        .container {
+            margin:0 auto;
+            text-align:center;
+    }
+        .center {
+            text-align: center;
+        }
+        a {
+            display: flex;
+            justify-content: center;
+        }
+    </style>
+    <script type="text/javascript">
+        cdn = document.getElementById("cdn");
+        purge = document.getElementById("purge");
+        github_input = document.getElementById("github");
+        jsdelivr_input = document.getElementById("jsdelivr");
+        github_input.addEventListener("keyup", function (event) {
+            url = github_input.value
+            url = url.replace(/.*github.com/gm, "https://cdn.jsdelivr.net/gh")
+            url = url.replace("/blob/", "@")
+            url = url.replace("/tree/", "@")
+    
+            jsdelivr_input.value = url
+            cdn.href = url
+            cdn.text = url
+            
+            url = url.replace("cdn.jsdelivr.net","purge.jsdelivr.net")
+            purge.href = url
+            purge.text = url
+    
+        });
+    </script>
+</html>
